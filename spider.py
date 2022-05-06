@@ -59,11 +59,7 @@ def scrape(args):
     pagination_config = config['pagination']
     url = config['url']
 
-    if args.mode == 'local':
-        driver = get_local_safe_setup()
-    else:
-        driver = get_safe_setup()
-
+    driver = get_local_safe_setup() if args.mode == 'local' else get_safe_setup()
     spider = Spider(driver, config)
 
     os.makedirs(os.path.dirname(args.output), exist_ok = True)
@@ -74,7 +70,7 @@ def scrape(args):
             df = pd.concat(list(data), axis = 0)
         else:
             df = spider.parse(url)
-        
+
         df.to_csv(args.output, index = False)
     except Exception as e:
         print(f'Parsing failed due to {str(e)}')
