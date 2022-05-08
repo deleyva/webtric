@@ -8,5 +8,4 @@ def read_json(file_path):
 
 def load_config(filename):
     with open(filename, 'r') as config:
-        parameters = yaml.full_load(config)
-        return parameters
+        return yaml.full_load(config)
